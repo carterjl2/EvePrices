@@ -14,24 +14,27 @@ class EvePrices
     {
         switch ($args['source']) {
             case 'redis':
-                $this->$priceSource=new \EvePrices\Sources\Redis($args['host'],$args['port'],$args['scheme']);
+                $this->priceSource=new \EvePrices\Sources\Redis($args['host'],$args['port'],$args['scheme']);
                 break;
             case 'populatedmemcached':
-                $this->$priceSource=new \EvePrices\Sources\Memcached($args['host'],$args['port']);
+                $this->priceSource=new \EvePrices\Sources\Memcached($args['host'],$args['port']);
                 break;
             case 'mysql':
-                $this->$priceSource=new \EvePrices\Sources\Mysql($args['dbh'],$args['selltable'],$args['buytable']);
+                $this->priceSource=new \EvePrices\Sources\Mysql($args['dbh'],$args['selltable'],$args['buytable']);
                 break;
             case 'marketdata':
-                $this->$priceSource=new \EvePrices\Sources\MarketData($args['userid']);
+                $this->priceSource=new \EvePrices\Sources\MarketData($args['userid']);
                 break;
             default:
-                throw new \Exception("EvePrices doesn't understand source type $args['source']");
+                throw new \Exception("EvePrices doesn't understand source type ".$args['source']);
         }
         if (isset($args['region']) and is_numeric($args['region'])) {
-            $this->$region=$args['region'];
+            $this->region=$args['region'];
         } else {
-            $this->$region=10000002;
+            $this->region=10000002;
+        }
+        if ($this->region==10000002) {
+            $this->region='forge';
         }
     }
 
@@ -42,10 +45,13 @@ class EvePrices
         } else {
             throw new \Exception("regionid must be a number");
         }
+        if ($this->region==10000002) {
+            $this->region='forge';
+        }
     }
 
-    public function returnprice($typeid, $regionid = null)
+    public function returnPrice($typeid, $regionid = null)
     {
-        return $this->$priceSource($typeid, $regionid ?: $this->$region);
+        return $this->priceSource->returnPrice($typeid, $regionid ?: $this->region);
     }
 }
