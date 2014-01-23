@@ -1,7 +1,7 @@
 {
-    "name": "fuzzysteve/price-library",
+    "name": "fuzzysteve/EvePrices",
     "description": "price library",
-    "homepage": "https://github.com/fuzzysteve/price-library",
+    "homepage": "https://github.com/fuzzysteve/EvePrices",
     "keywords": ["EVE Online"],
     "license": "MIT",
     "authors": [
