@@ -1,0 +1,22 @@
+{
+    "name": "fuzzysteve/price-library",
+    "description": "price library",
+    "homepage": "https://github.com/fuzzysteve/price-library",
+    "keywords": ["EVE Online"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Steve Anderson",
+            "email": "steve@fuzzysteve.co.uk",
+            "role": "Developer"
+        }
+    ],
+    "type": "library",
+    "autoload": {
+        "psr-0": { "EvePrices": "lib/"}
+    },
+    "suggest": { 
+        "predis/predis":"Required for the Redis version",
+        "ext-memcached":"Required for memcache"
+    }
+}
