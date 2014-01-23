@@ -14,19 +14,19 @@ class EvePrices
     {
         switch ($args['source']) {
             case 'redis':
-                $this->$priceSource=new \EvePrices\Sources\redis(array('host'=>$args['host'],'port'=>$args['port'],$args['scheme']));
+                $this->$priceSource=new \EvePrices\Sources\Redis($args['host'],$args['port'],$args['scheme']);
                 break;
             case 'populatedmemcached':
-                $this->$priceSource=new \EvePrices\Sources\memcached(array('host'=>$args['host'],'port'=>$args['port']));
+                $this->$priceSource=new \EvePrices\Sources\Memcached($args['host'],$args['port']);
                 break;
             case 'mysql':
-                $this->$priceSource=new \EvePrices\Sources\mysql(array('dbh'=$args['dbh'],'selltable'=$args['selltable'],'buytable'=>$args['buytable']));
+                $this->$priceSource=new \EvePrices\Sources\Mysql($args['dbh'],$args['selltable'],$args['buytable']);
                 break;
             case 'marketdata':
-                $this->$priceSource=new \EvePrices\Sources\mysql(array('userid'=$args['userid']));
+                $this->$priceSource=new \EvePrices\Sources\MarketData($args['userid']);
                 break;
             default:
-                throw new \Exception("EvePrices doesn't understant source type $args['source']");
+                throw new \Exception("EvePrices doesn't understand source type $args['source']");
         }
         if (isset($args['region']) and is_numeric($args['region'])) {
             $this->$region=$args['region'];
