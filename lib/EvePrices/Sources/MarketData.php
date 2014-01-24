@@ -20,13 +20,15 @@ class MarketData
         }
         $url="http://api.eve-marketdata.com/api/item_prices2.xml?char_name=steveronuken&buysell=a&region_ids=".$regionid."&type_ids=".$typeid;
         $pricexml=file_get_contents($url);
-        $xml=new SimpleXMLElement($pricexml);
-        $price= (float) $xml->result->rowset->row['price'][0];
+        $xml=new \SimpleXMLElement($pricexml);
+        $price= $xml->xpath('//row[@buysell="s"][@typeID="'.$typeid.'"]/@price');
+        $price=(float)$price[0]->price;
         $price=round($price, 2);
         if (!(is_numeric($price))) {
             $price=0;
         }
-        $buyprice= (float) $xml->result->rowset->row['price'][1];
+        $buyprice= $xml->xpath('//row[@buysell="b"][@typeID="'.$typeid.'"]/@price');
+        $buyprice=(float)$buyprice[0]->price;
         $buyprice=round($buyprice, 2);
         if (!(is_numeric($buyprice))) {
             $buyprice=0;
