@@ -18,7 +18,8 @@ class MarketData
         if (isset($this->cache[$regionid-$typeid])) {
             return $this->cache[$regionid-$typeid];
         }
-        $url="http://api.eve-marketdata.com/api/item_prices2.xml?char_name=steveronuken&buysell=a&region_ids=".$regionid."&type_ids=".$typeid;
+        $url="http://api.eve-marketdata.com/api/item_prices2.xml?char_name=".$this->userid
+        "&buysell=a&region_ids=".$regionid."&type_ids=".$typeid;
         $pricexml=file_get_contents($url);
         $xml=new \SimpleXMLElement($pricexml);
         $price= $xml->xpath('//row[@buysell="s"][@typeID="'.$typeid.'"]/@price');
