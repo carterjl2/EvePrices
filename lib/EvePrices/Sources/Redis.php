@@ -31,7 +31,7 @@ class Redis
 
     public function returnPriceArray($typeids, $regionid)
     {
-        priceArray=array();
+        $priceArray=array();
         foreach ($typeids as $typeid) {
             $pricedatasell=$this->redis->get($regionid.'sell-'.$typeid);
             $pricedatabuy=$this->redis->get($regionid.'buy-'.$typeid);
@@ -52,7 +52,7 @@ class Redis
     
     public function populateArray($inputarray, $regionid)
     {
-        populatedArray=array();
+        $populatedArray=array();
         foreach ($inputarray as $entry) {
             $typeid=$entry['typeid'];
             $pricedatasell=$this->redis->get($regionid.'sell-'.$typeid);
