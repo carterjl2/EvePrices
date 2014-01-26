@@ -28,4 +28,14 @@ class Memcached
         }
         return array($price,$pricebuy);
     }
+
+    public function returnPriceArray($typeids, $regionid)
+    {
+
+    }
+
+    public function populateArray($inputarray, $regionid)
+    {
+
+    }
 }

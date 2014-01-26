@@ -37,4 +37,12 @@ class MarketData
         $this->cache[$regionid-$typeid]=array($price,$buyprice);
         return array($price,$buyprice);
     }
+
+    public function returnPriceArray($typeids, $regionid)
+    {
+    }
+
+    public function populateArray($inputarray, $regionid)
+    {
+    }
 }

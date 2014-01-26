@@ -75,7 +75,7 @@ class EvePrices
         if (isset($this->cache)) {
             list($cachedpricearray, $typeids)=$this->cache->checkPriceArray($typeids, $regionid ?: $this->region);
         }
-        $pricearray=$this->priceSource->returnPriceArray($typeids, $typeids, $regionid ?: $this->region);
+        $pricearray=$this->priceSource->returnPriceArray($typeids, $regionid ?: $this->region);
         if (isset($this->cache)) {
             $this->cache->setPriceArray($pricearray, $regionid ?: $this->region);
             $totalpricearray=$pricearray+$cachedpricearray;
@@ -90,7 +90,7 @@ class EvePrices
         if (isset($this->cache)) {
             list($cachedpricearray, $inputarray)=$this->cache->checkPopulatedArray($typeids, $regionid ?: $this->region);
         }
-        $pricearray=$this->priceSource->populateArray($inputarray, $typeids, $regionid ?: $this->region);
+        $pricearray=$this->priceSource->populateArray($inputarray, $regionid ?: $this->region);
         if (isset($this->cache)) {
             $this->cache->setPopulatedArray($pricearray, $regionid ?: $this->region);
             $totalpricearray=$pricearray+$cachedpricearray;
