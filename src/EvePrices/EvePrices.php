@@ -28,9 +28,12 @@ class EvePrices
             default:
                 throw new \Exception("EvePrices doesn't understand source type ".$args['source']);
         }
-        switch ($args['cache']) {
-            case 'memcache':
-                $this->cache=new \EvePrices\Cache\Memcached($args['cachehost'], $args['cacheport']);
+        if (isset($args['cache']))
+        {
+            switch ($args['cache']) {
+                case 'memcache':
+                    $this->cache=new \EvePrices\Cache\Memcached($args['cachehost'], $args['cacheport']);
+            }
         }
         if (isset($args['region']) and is_numeric($args['region'])) {
             $this->region=$args['region'];
@@ -88,7 +91,7 @@ class EvePrices
     {
         $cachedpricearray=array();
         if (isset($this->cache)) {
-            list($cachedpricearray, $inputarray)=$this->cache->checkPopulatedArray($inputarray, $regionid ?: $this->region);
+            list($cachedpricearray, $inputarray)=$this->cache->checkPopulatedArray($typeids, $regionid ?: $this->region);
         }
         $pricearray=$this->priceSource->populateArray($inputarray, $regionid ?: $this->region);
         if (isset($this->cache)) {
