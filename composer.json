@@ -13,7 +13,7 @@
     ],
     "type": "library",
     "autoload": {
-        "psr-0": { "EvePrices": "lib/"}
+        "psr-0": { "EvePrices": "src/"}
     },
     "suggest": { 
         "predis/predis":"Required for the Redis version",
