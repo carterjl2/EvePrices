@@ -36,7 +36,7 @@ class MarketData
     {
         $priceArray=array();
         $url="http://api.eve-marketdata.com/api/item_prices2.xml?char_name=".$this->userid
-        ."&buysell=a&region_ids=".$regionid."&type_ids=".join(",", $typeid);
+        ."&buysell=a&region_ids=".$regionid."&type_ids=".join(",", $typeids);
         $pricexml=file_get_contents($url);
         $xml=new \SimpleXMLElement($pricexml);
         foreach ($typeids as $typeid) {
