@@ -25,8 +25,7 @@ class EvePrices
             default:
                 throw new \Exception("EvePrices doesn't understand source type ".$args['source']);
         }
-        if (isset($args['cache']))
-        {
+        if (isset($args['cache'])) {
             switch ($args['cache']) {
                 case 'memcache':
                     $this->cache=new \EvePrices\Cache\Memcached($args['cachehost'], $args['cacheport']);
@@ -77,6 +76,9 @@ class EvePrices
         $cachedpricearray=array();
         if (isset($this->cache)) {
             list($cachedpricearray, $typeids)=$this->cache->checkPriceArray($typeids, $regionid ?: $this->region);
+            if (empty($typeids)) {
+                return $cachedpricearray;
+            }
         }
         $pricearray=$this->priceSource->returnPriceArray($typeids, $regionid ?: $this->region);
         if (isset($this->cache)) {
@@ -92,6 +94,9 @@ class EvePrices
         $cachedpricearray=array();
         if (isset($this->cache)) {
             list($cachedpricearray, $inputarray)=$this->cache->checkPopulatedArray($inputarray, $regionid ?: $this->region);
+            if (empty($inputarray)) {
+                return $cachedpricearray;
+            }
         }
         $pricearray=$this->priceSource->populateArray($inputarray, $regionid ?: $this->region);
         if (isset($this->cache)) {
