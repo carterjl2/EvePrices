@@ -91,7 +91,7 @@ class EvePrices
     {
         $cachedpricearray=array();
         if (isset($this->cache)) {
-            list($cachedpricearray, $inputarray)=$this->cache->checkPopulatedArray($typeids, $regionid ?: $this->region);
+            list($cachedpricearray, $inputarray)=$this->cache->checkPopulatedArray($inputarray, $regionid ?: $this->region);
         }
         $pricearray=$this->priceSource->populateArray($inputarray, $regionid ?: $this->region);
         if (isset($this->cache)) {
