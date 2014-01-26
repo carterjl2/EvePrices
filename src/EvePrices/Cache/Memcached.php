@@ -22,7 +22,7 @@ class Memcached
         if (!(is_numeric($pricedatabuy))) {
             return null;
         }
-        return array($pricedatasell,$pricedatabuy);
+        return array((float)$pricedatasell,(float)$pricedatabuy);
     }
 
     public function checkPriceArray($typeids, $regionid)
@@ -40,7 +40,7 @@ class Memcached
                 $toget[]=$typeid;
                 continue;
             }
-            $priceArray[$typeid]=array($pricedatasell,$pricedatabuy);
+            $priceArray[$typeid]=array((float)$pricedatasell,(float)$pricedatabuy);
         }
         return array($priceArray,$toget);
     }
@@ -61,7 +61,7 @@ class Memcached
                 $toget[]=$entry;
                 continue;
             }
-                $entry['price']=array($pricedatasell,$pricedatabuy);
+                $entry['price']=array((float)$pricedatasell,(float)$pricedatabuy);
                 $populatedArray[]=$entry;
         }
         return array($populatedArray,$toget);
