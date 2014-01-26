@@ -19,9 +19,6 @@ class EvePrices
             case 'populatedmemcached':
                 $this->priceSource=new \EvePrices\Sources\Memcached($args['host'], $args['port']);
                 break;
-            case 'mysql':
-                $this->priceSource=new \EvePrices\Sources\Mysql($args['dbh'], $args['selltable'], $args['buytable']);
-                break;
             case 'marketdata':
                 $this->priceSource=new \EvePrices\Sources\MarketData($args['userid']);
                 break;
@@ -33,6 +30,9 @@ class EvePrices
             switch ($args['cache']) {
                 case 'memcache':
                     $this->cache=new \EvePrices\Cache\Memcached($args['cachehost'], $args['cacheport']);
+                    break;
+                default:
+                    throw new \Exception("EvePrices doesn't understand cache type ".$args['cache']);
             }
         }
         if (isset($args['region']) and is_numeric($args['region'])) {

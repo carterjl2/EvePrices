@@ -1,7 +1,7 @@
 <?php
 namespace EvePrices\Cache;
 
-class Memcached
+class Memcached implements \EvePrices\CacheInterface
 {
 
     private $memcache;
