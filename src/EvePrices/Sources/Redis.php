@@ -25,7 +25,17 @@ class Redis
         if (!(is_numeric($pricebuy))) {
             $pricebuy=0;
         }
-        return array($price,$pricebuy);
+        $eveprices=$this->redis->get('eveprice-'.$typeid);
+        $values=explode("|", $eveprices);
+        $average=$values[0];
+        $adjusted=$values[1];
+        if (!(is_numeric($adjusted))) {
+            $adjusted=0;
+        }
+        if (!(is_numeric($average))) {
+            $average=0;
+        }
+        return array($price,$pricebuy,$adjusted,$average);
     }
 
 
@@ -45,7 +55,17 @@ class Redis
             if (!(is_numeric($pricebuy))) {
                 $pricebuy=0;
             }
-            $priceArray[$typeid]=array($price,$pricebuy);
+            $eveprices=$this->redis->get('eveprice-'.$typeid);
+            $values=explode("|", $eveprices);
+            $average=$values[0];
+            $adjusted=$values[1];
+            if (!(is_numeric($adjusted))) {
+                $adjusted=0;
+            }
+            if (!(is_numeric($average))) {
+                $average=0;
+            }
+            $priceArray[$typeid]=array($price,$pricebuy,$adjusted,$average);
         }
         return $priceArray;
     }
@@ -67,7 +87,17 @@ class Redis
             if (!(is_numeric($pricebuy))) {
                 $pricebuy=0;
             }
-            $entry['price']=array($price,$pricebuy);
+            $eveprices=$this->redis->get('eveprice-'.$typeid);
+            $values=explode("|", $eveprices);
+            $average=$values[0];
+            $adjusted=$values[1];
+            if (!(is_numeric($adjusted))) {
+                $adjusted=0;
+            }
+            if (!(is_numeric($average))) {
+                $average=0;
+            }
+            $entry['price']=array($price,$pricebuy,$adjusted,$average);
             $populatedArray[]=$entry;
         }
         return $populatedArray;
