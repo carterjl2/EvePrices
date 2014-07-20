@@ -35,7 +35,7 @@ class Redis
         if (!(is_numeric($average))) {
             $average=0;
         }
-        return array($price,$pricebuy,$adjusted,$average);
+        return array('sell'=>$price,'buy'=>$pricebuy,'adjusted'=>$adjusted,'average'=>$average);
     }
 
 
@@ -46,26 +46,39 @@ class Redis
             $pricedatasell=$this->redis->get($regionid.'sell-'.$typeid);
             $pricedatabuy=$this->redis->get($regionid.'buy-'.$typeid);
             $values=explode("|", $pricedatasell);
-            $price=$values[0];
-            if (!(is_numeric($price))) {
+            if (isset($values)) {
+                $price=$values[0];
+                if (!(is_numeric($price))) {
+                    $price=0;
+                }
+            } else {
                 $price=0;
             }
             $values=explode("|", $pricedatabuy);
-            $pricebuy=$values[0];
-            if (!(is_numeric($pricebuy))) {
+            if (isset($values)) {
+                $pricebuy=$values[0];
+                if (!(is_numeric($pricebuy))) {
+                    $pricebuy=0;
+                }
+            } else {
                 $pricebuy=0;
             }
             $eveprices=$this->redis->get('eveprice-'.$typeid);
-            $values=explode("|", $eveprices);
-            $average=$values[0];
-            $adjusted=$values[1];
-            if (!(is_numeric($adjusted))) {
+            if (isset($values)) {
+                $values=explode("|", $eveprices);
+                $average=$values[0];
+                $adjusted=$values[1];
+                if (!(is_numeric($adjusted))) {
+                    $adjusted=0;
+                }
+                if (!(is_numeric($average))) {
+                    $average=0;
+                }
+            } else {
                 $adjusted=0;
-            }
-            if (!(is_numeric($average))) {
                 $average=0;
             }
-            $priceArray[$typeid]=array($price,$pricebuy,$adjusted,$average);
+            $priceArray[$typeid]=array('sell'=>$price,'buy'=>$pricebuy,'adjusted'=>$adjusted,'average'=>$average);
         }
         return $priceArray;
     }
